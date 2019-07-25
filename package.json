@@ -1,0 +1,23 @@
+{
+  "name": "udp_socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morenomariscal/udp_socket.git"
+  },
+  "keywords": [],
+  "author": "Arturo Moreno <morenomariscal@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/morenomariscal/udp_socket/issues"
+  },
+  "homepage": "https://github.com/morenomariscal/udp_socket#readme",
+  "dependencies": {
+    "dgram": "^1.0.1"
+  }
+}
