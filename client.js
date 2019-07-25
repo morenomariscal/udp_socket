@@ -9,7 +9,7 @@ server.bind(SRC_PORT, function () {
 });
 
 function multicastNew() {
-    var message = new Buffer("Mensaje Multicast....!")
+    var message = new Buffer.from("Mensaje Multicast....!")
     server.send(message, 0, message.length, PORT, MULTICAST_ADDR, function () {
         console.log("Enviar '" + message + "'")
     })
