@@ -1,19 +1,17 @@
+const PORT = 6024;
+const MULTICAST_ADDR = '239.255.255.250'
 const dgram = require('dgram')
-const server = dgram.createSocket("udp4")
+const client = dgram.createSocket('udp4')
 
-server.bind(41234)
-
-server.on('error', (err) => {
-    console.log(`Error en el servicio:\n${err.stack}`);
-    server.close()
-})
-
-server.on('message', function (message, rinfo) {
-    let output = "El servicio UDP recibe un mensaje: " + message + "de la ip: "+ rinfo.address+ "\n"
-    process.stdout.write(output)
+client.on('listening', function () {
+    const address = client.address()
+    console.log('Servicio UDP escuchando a ' + address.address + ":" + address.port)
 });
 
-server.on('listening', function () {
-    const address = server.address()
-    console.log('Servicio UDP iniciado y escuchando en ' + address.address + ":" + address.port)
+client.on('message', function (message, rinfo) {
+    console.log('Mensaje de: ' + rinfo.address + ':' + rinfo.port + ' - ' + message)
+});
+
+client.bind(PORT, function () {
+    client.addMembership(MULTICAST_ADDR)
 })
