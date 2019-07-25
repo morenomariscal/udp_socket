@@ -1,24 +1,16 @@
+const SRC_PORT = 6025
+const PORT = 6024
+const MULTICAST_ADDR = '239.255.255.250'
 const dgram = require('dgram')
-const client = dgram.createSocket("udp4")
+const server = dgram.createSocket("udp4")
 
-let message = ""
+server.bind(SRC_PORT, function () {
+    setInterval(multicastNew, 4000)
+});
 
-process.stdin.setEncoding('utf-8')
-
-process.stdin.on('data', function (text) {
-    if('send\n' === text) {
-
-        if (message == null || message.length == 0) {
-            message = "Hola Servicio UDP"
-        }
-
-        console.log("El usuario mando: " + message)
-
-        message = new Buffer.from(message)
-        
-        client.send(message, 0, message.length, 41234, "localhost")
-
-    }else{
-        message += text;
-    }
-})
+function multicastNew() {
+    var message = new Buffer("Mensaje Multicast....!")
+    server.send(message, 0, message.length, PORT, MULTICAST_ADDR, function () {
+        console.log("Enviar '" + message + "'")
+    })
+}
